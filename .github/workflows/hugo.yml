@@ -73,6 +73,6 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
-          with:
-            name: json
-            path: ${{ env.OUTPUT_PATH }}/index.json
+        with:
+          name: json
+          path: ${{ env.OUTPUT_PATH }}/index.json
