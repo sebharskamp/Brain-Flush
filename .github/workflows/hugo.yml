@@ -2,6 +2,7 @@
 name: Deploy Hugo site to Pages
 env:
     OUTPUT_PATH: ./public
+    WEBSITE_PATH: ./website
 
 on:
   # Runs on pushes targeting the default branch
@@ -54,13 +55,12 @@ jobs:
         run: |
           hugo \
             --minify \
-            --source ./website \
-            --destination ${{ env.OUTPUT_PATH }} \
+            --source ${{ env.WEBSITE_PATH }} \
             --baseURL "${{ steps.pages.outputs.base_url }}/"
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          path: ${{ env.OUTPUT_PATH }}/website
+          path: ${{ env.WEBSITE_PATH }}
 
   # Deployment job
   deploy:
@@ -73,6 +73,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
-        with:
-          name: json
-          path: ${{ env.OUTPUT_PATH }}/website/index.json
